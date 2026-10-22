@@ -1,9 +1,7 @@
 <?php
 
-return [
-    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'localhost,127.0.0.1')),
-    'guard' => ['web'],
-    'expiration' => null,
-    'middleware' => ['web'],
-    'prefix' => 'sanctum',
-];
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Laravel\Sanctum\Http\Middleware\AuthenticateSession;
+
+return ['stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'localhost,localhost:8000,127.0.0.1,127.0.0.1:8000')), 'guard' => ['web'], 'expiration' => null, 'middleware' => ['authenticate_session' => AuthenticateSession::class, 'encrypt_cookies' => EncryptCookies::class, 'validate_csrf_token' => ValidateCsrfToken::class]];
