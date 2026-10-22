@@ -2,6 +2,21 @@
 
 Gestión de estudios contables en Chile con **Laravel 12, PHP 8.2+, Vue 3, TypeScript y MySQL/MariaDB**. Interfaz verde profundo y marfil, portal de clientes y archivos privados.
 
+## Demo pública para compartir
+
+Abrir **https://expressconta.vercel.app**. El login muestra las credenciales de prueba y permite entrar con un clic:
+
+| Perfil | Correo | Contraseña demo |
+|---|---|---|
+| Contador | contador@expressconta.demo | Demo2026! |
+| Cliente | cliente@expressconta.demo | Demo2026! |
+
+Son perfiles locales ficticios, sin acceso al backend. Los cambios se guardan exclusivamente en el navegador y no se comparten entre personas/dispositivos. La franja de demostración permite cambiar de perfil y reiniciar los datos. Las cargas conservan solo nombres/metadatos: no leen ni envían el contenido. Las descargas producen un documento de ejemplo. No ingresar información o contraseñas reales.
+
+`npm run build:vercel` activa la demo cuando falta `BACKEND_ORIGIN`. Para una instalación real, definir `BACKEND_ORIGIN` y dejar `DEMO_MODE=false`. La demo no modifica la autenticación ni los datos de Laravel. `DEMO_MODE=false` sin backend muestra el estado de servicio pendiente. Combinar `DEMO_MODE=true` con un backend provoca error de compilación para evitar mezclar ambos modos.
+
+Verificar la demo con `npm run build:vercel` y `npm run test:demo` (Chromium instalado). Puede probarse una URL publicada con `DEMO_BASE_URL=https://… npm run test:demo`; las pruebas solo modifican datos ficticios del navegador.
+
 ## Estado
 
 Primera versión funcional para instalación y evaluación: autenticación por sesión, múltiples estudios, permisos por empresa, trabajos, solicitudes, versiones de archivos, revisión documental, tareas, honorarios con pagos parciales, informes publicados, consultas, notificaciones internas y auditoría.

@@ -1,7 +1,9 @@
 import axios from 'axios';
+import {isDemo,demoAdapter} from './demo';
 export const api=axios.create({baseURL:'/api',withCredentials:true,withXSRFToken:true,headers:{Accept:'application/json','X-Requested-With':'XMLHttpRequest'}});
+if(isDemo)api.defaults.adapter=demoAdapter;
 export function errorText(e:unknown):string {if(axios.isAxiosError(e)){const d=e.response?.data;return d?.errors?Object.values(d.errors).flat().join(' '):d?.message||'No se pudo completar la operación. Revisa tu conexión.';}return 'Ocurrió un error inesperado.';}
-export async function csrf(){await axios.get('/sanctum/csrf-cookie',{withCredentials:true});}
+export async function csrf(){if(isDemo)return;await axios.get('/sanctum/csrf-cookie',{withCredentials:true});}
 export const clp=(n:number)=>new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}).format(n);
 export function date(d:string|null){return d?new Intl.DateTimeFormat('es-CL',{timeZone:'America/Santiago'}).format(new Date(d.length===10?d+'T12:00:00Z':d)):'Sin fecha';}
 export const currentPeriod=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Santiago',year:'numeric',month:'2-digit'}).format(new Date());

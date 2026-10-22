@@ -62,6 +62,6 @@ La configuración `vercel.json` ejecuta `npm run build:vercel`. Produce una SPA 
 5. En Laravel: `SESSION_DOMAIN=null`, `SESSION_SECURE_COOKIE=true`. No fijar cookies al dominio del backend. Configurar `FRONTEND_URL=https://frontend.vercel.app` para los enlaces de recuperación de contraseña.
 6. Probar de extremo a extremo login, CSRF, cookies, carga, descarga y recuperación en los dominios reales. Respetar los límites de tamaño y duración del proxy de Vercel/hosting.
 
-Si falta `BACKEND_ORIGIN`, se puede publicar la interfaz, pero mostrará **servicio pendiente de conexión**. No acepta ingresos, simula clientes ni guarda datos. Las rutas de API devuelven 503. No confundir ese despliegue con el sistema operativo.
+Si falta `BACKEND_ORIGIN`, la compilación publica la **demo local**: dos perfiles públicos de prueba, datos ficticios y persistencia exclusiva en el navegador. No se realizan peticiones a Laravel, correos ni cobros; los archivos solo conservan metadatos. Las rutas de API siguen devolviendo 503 para impedir que se confundan con un backend real. Configurar `DEMO_MODE=false` sin backend para mostrar únicamente el aviso de servicio pendiente. Para operar con Laravel, configurar `BACKEND_ORIGIN` y desactivar la demo.
 
 La alternativa PHP serverless requiere una adaptación distinta: runtime comunitario, almacenamiento externo, sesiones compartidas, base de datos remota y planificación de tareas. Este repositorio conserva el backend PHP con disco privado persistente y no lo presenta como compatible sin cambios con ese entorno.

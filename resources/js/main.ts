@@ -15,6 +15,8 @@ import Conversations from './views/Conversations.vue';
 import Settings from './views/Settings.vue';
 import {useAuth} from './stores/auth';
 import './style.css';
+import {installDemoDownloads} from './demo';
+installDemoDownloads();
 const pinia=createPinia();
 const router=createRouter({history:createWebHistory(),routes:[{path:'/login',component:Login},{path:'/forgot-password',component:Login},{path:'/reset-password/:token',component:Login},{path:'/',component:Dashboard},{path:'/companies',component:Companies},{path:'/companies/:id',component:CompanyDetail},{path:'/works',component:Works},{path:'/documents',component:Documents},{path:'/billing',component:Billing},{path:'/tasks',component:Tasks},{path:'/reports',component:Reports},{path:'/conversations',component:Conversations},{path:'/settings',component:Settings},{path:'/:pathMatch(.*)*',redirect:'/'}]});
 router.beforeEach(async to=>{const auth=useAuth(pinia);if(!auth.ready)await auth.init();const guest=['/login','/forgot-password'].includes(to.path)||to.path.startsWith('/reset-password/');if(!auth.user&&!guest)return '/login';if(auth.user&&guest)return '/';if(auth.user&&!auth.staff&&['/tasks','/settings'].includes(to.path))return '/';if(auth.user&&!auth.admin&&to.path==='/settings')return '/';});

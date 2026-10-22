@@ -1,0 +1,2 @@
+import {defineConfig} from '@playwright/test';
+export default defineConfig({testDir:'./tests/demo',workers:1,fullyParallel:false,timeout:30000,use:{baseURL:process.env.DEMO_BASE_URL||'http://127.0.0.1:4173',headless:true,trace:'retain-on-failure',screenshot:'only-on-failure',launchOptions:{args:['--no-sandbox']}},...(process.env.DEMO_BASE_URL?{}:{webServer:{command:'node node_modules/vite/bin/vite.js preview --config vite.vercel.config.js --host=127.0.0.1 --port=4173',url:'http://127.0.0.1:4173',reuseExistingServer:false}}),reporter:'list'});
